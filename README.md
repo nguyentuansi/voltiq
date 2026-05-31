@@ -2,6 +2,12 @@
 
 **AI-first performance + security scanner for Node.js / Bun apps.**
 
+![voltiq demo — one command points at a running app, captures a real browser run, and reports the root-cause files](docs/demo.gif)
+
+> One command. `voltiq` drives a real browser against your running app, captures the Core
+> Web Vitals + network, and reports the **root-cause files** — no config. Add `--prod` for a
+> real-user verdict.
+
 `voltiq` is a single cross-platform Rust binary that measures the runtime health
 (startup, throughput, latency, memory/leaks) **and** secret hygiene (leaked creds,
 client-bundle exposure, committed `.env`, Supabase `service_role` confusion) of apps
