@@ -1,16 +1,24 @@
 # voltiq
 
-**AI-first performance + security scanner for Node.js / Bun apps.**
+**AI-first performance + security scanner for any Node.js app — Bun & Deno too.**
 
-![voltiq — the CLI run on the left, the live report dashboard it produces on the right](docs/cli-vs-dashboard.png)
+![voltiq report dashboard — Core Web Vitals, network weight, main-thread, and the root-cause findings](docs/dashboard.png)
+
+![voltiq — one command drives a real browser, captures the run, and opens the report dashboard](docs/demo-full.gif)
 
 > One command. `voltiq` drives a real browser against your running app, captures the Core
 > Web Vitals + network, and reports the **root-cause files** — no config. Add `--prod` for a
 > real-user verdict.
 
-![watch voltiq capture a run and surface the root-cause findings](docs/demo.gif)
+**DEV** — point it at your dev server (unbundled, best-case numbers):
 
-**More:** [the full run, ending on the dashboard](docs/demo-full.mp4) · [`--prod --lab --throttle` field-representative verdict](docs/demo-prod.gif) · [the complete report dashboard](docs/dashboard-full.png)
+![voltiq capturing a dev run and surfacing the root-cause findings](docs/demo.gif)
+
+**PRO** — `--prod --lab --throttle`, the field-representative verdict (real-user conditions):
+
+![voltiq --prod field-representative run](docs/demo-prod.gif)
+
+**More:** [the full run as video (mp4)](docs/demo-full.mp4) · [the complete report dashboard](docs/dashboard-full.png) · [CLI ↔ dashboard side-by-side](docs/cli-vs-dashboard.png)
 
 `voltiq` is a single cross-platform Rust binary that measures the runtime health
 (startup, throughput, latency, memory/leaks) **and** secret hygiene (leaked creds,
