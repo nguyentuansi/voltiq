@@ -30,6 +30,19 @@ structured evidence for the host agent to reason over (no API key, no cost); run
 standalone it can use an optional BYO-key LLM, and always falls back to deterministic
 rules. Reports render in a SvelteKit dashboard that reuses the `landing-v` design system.
 
+## Install
+
+```bash
+# with Rust — installs the `voltiq` binary:
+cargo install voltiq
+```
+
+Or download a prebuilt binary (no toolchain needed) for Linux / macOS / Windows from the
+**[latest release](https://github.com/nguyentuansi/voltiq/releases/latest)**.
+
+To drive it from Claude Code / Cursor / Codex over MCP, see
+[AI / agent integration](#ai--agent-integration) below.
+
 ## Layout
 
 ```
@@ -45,7 +58,7 @@ crates/             Rust workspace
   voltiq-cli        `voltiq` binary (clap) + TUI
 ```
 
-## Build
+## Build from source
 
 ```bash
 bun install         # workspace deps (uses bun, not pnpm)
