@@ -4,10 +4,11 @@ on:
     tags: ["v*"]
 
 permissions:
-  contents: write
+  contents: write # create the GitHub Release with binaries
 
 jobs:
-  build:
+  # 1) Cross-platform binaries -> attached to the GitHub Release (for curl|sh / manual install).
+  binaries:
     strategy:
       fail-fast: false
       matrix:
@@ -27,27 +28,47 @@ jobs:
       - name: Install musl tools
         if: matrix.target == 'x86_64-unknown-linux-musl'
         run: sudo apt-get update && sudo apt-get install -y musl-tools
-      - uses: pnpm/action-setup@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          version: 10
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: Build dashboard
-        run: pnpm --filter @voltiq/dashboard build
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - name: Build dashboard (embedded into the binary)
+        run: bun run --filter @voltiq/dashboard build
       - name: Build release binary
-        run: cargo build --release --manifest-path crates/Cargo.toml --target ${{ matrix.target }} -p voltiq-cli
+        run: cargo build --release --manifest-path crates/Cargo.toml --target ${{ matrix.target }} -p voltiq
       - name: Stage binary
         shell: bash
         run: |
-          bin="voltiq"
           ext=""
           if [ "${{ matrix.os }}" = "windows-latest" ]; then ext=".exe"; fi
-          src="crates/target/${{ matrix.target }}/release/${bin}${ext}"
-          out="voltiq-${{ matrix.target }}${ext}"
-          cp "$src" "$out"
+          cp "crates/target/${{ matrix.target }}/release/voltiq${ext}" "voltiq-${{ matrix.target }}${ext}"
       - uses: softprops/action-gh-release@v2
         with:
           files: voltiq-${{ matrix.target }}*
+
+  # 2) Publish the crates to crates.io in dependency order (so `cargo install voltiq` works).
+  #    Auth via a scoped crates.io token stored as the CARGO_REGISTRY_TOKEN repo secret.
+  #    Token-less alternative: configure crates.io Trusted Publishing per crate and swap the
+  #    env for `- uses: rust-lang/crates-io-auth-action@v1` + `permissions: id-token: write`.
+  publish-crates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - name: Build dashboard (voltiq-server embeds it at compile time)
+        run: bun run --filter @voltiq/dashboard build
+      - name: cargo publish (core first, cli last)
+        working-directory: crates
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: |
+          set -e
+          for c in voltiq-core voltiq-security voltiq-perf voltiq-analysis voltiq-server voltiq-mcp voltiq; do
+            echo "::group::publish $c"
+            cargo publish -p "$c"
+            echo "::endgroup::"
+          done

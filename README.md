@@ -51,7 +51,7 @@ crates/             Rust workspace
 bun install         # workspace deps (uses bun, not pnpm)
 make build          # dashboard -> embed -> rust binary
 make test           # cargo test
-cargo run --manifest-path crates/Cargo.toml -p voltiq-cli -- --help
+cargo run --manifest-path crates/Cargo.toml -p voltiq -- --help
 
 # per-app (bun workspaces):
 bun run --filter @voltiq/landing dev      # landing site on :7880

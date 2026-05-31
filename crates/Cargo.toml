@@ -11,7 +11,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.0.0"
+version = "0.1.0"
 edition = "2021"
 license = "AGPL-3.0-only"
 rust-version = "1.80"
@@ -31,13 +31,13 @@ walkdir = "2"
 tempfile = "3"
 base64 = "0.22"
 
-# internal crates
-voltiq-core = { path = "voltiq-core" }
-voltiq-security = { path = "voltiq-security" }
-voltiq-perf = { path = "voltiq-perf" }
-voltiq-analysis = { path = "voltiq-analysis" }
-voltiq-server = { path = "voltiq-server" }
-voltiq-mcp = { path = "voltiq-mcp" }
+# internal crates (version required so crates.io publishes resolve the deps)
+voltiq-core = { path = "voltiq-core", version = "0.1.0" }
+voltiq-security = { path = "voltiq-security", version = "0.1.0" }
+voltiq-perf = { path = "voltiq-perf", version = "0.1.0" }
+voltiq-analysis = { path = "voltiq-analysis", version = "0.1.0" }
+voltiq-server = { path = "voltiq-server", version = "0.1.0" }
+voltiq-mcp = { path = "voltiq-mcp", version = "0.1.0" }
 
 [profile.release]
 strip = true

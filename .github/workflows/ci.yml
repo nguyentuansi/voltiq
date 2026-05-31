@@ -14,17 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: pnpm/action-setup@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          version: 10
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
+          bun-version: latest
       - name: Install JS deps
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
       - name: Build dashboard (needed before cargo embeds it)
-        run: pnpm --filter @voltiq/dashboard build
+        run: bun run --filter @voltiq/dashboard build
       - name: cargo fmt
         run: cargo fmt --all --check
         working-directory: crates
