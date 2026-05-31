@@ -1,6 +1,6 @@
 # voltiq
 
-**AI-first performance + security scanner for any Node.js app — Bun & Deno too.**
+**AI-first performance + security scanner for any Node.js app.**
 
 ![voltiq report dashboard — Core Web Vitals, network weight, main-thread, and the root-cause findings](docs/dashboard.png)
 
@@ -57,26 +57,6 @@ cargo run --manifest-path crates/Cargo.toml -p voltiq-cli -- --help
 bun run --filter @voltiq/landing dev      # landing site on :7880
 bun run --filter @voltiq/dashboard build  # report dashboard SPA
 ```
-
-## Status
-
-**Implemented & tested (Phases 0–4):**
-- Monorepo (bun workspaces + Turborepo) + Rust workspace; single embedded binary.
-- Security: regex+entropy secret rules, `.env` exposure, git-history, client-bundle
-  (incl. Supabase `service_role` + source-map), redaction; offline by default.
-- Performance: runtime detection, launch + attach, raw-TCP load test
-  (startup / throughput / p50–p99 / error rate), OS-metric **process-tree** sampling,
-  warmup-aware leak heuristic, static antipatterns.
-- Hybrid AI: deterministic `RulesAnalyzer` + `agent_brief` (MCP host-defer) +
-  opt-in `LlmAnalyzer` (`--ai`, Anthropic, BYO key).
-- Delivery: `voltiq serve` (embedded SPA + `/api/report`), `audit --html`
-  (self-contained themed report), human / JSON / SARIF output, exit-code gating.
-- MCP stdio server (`voltiq mcp`) + Claude Code / Cursor / Codex snippets;
-  CI matrix + release workflow + pre-commit + scan Action.
-
-**Remaining depth work (designed, not yet built):** V8-inspector / `bun:jsc` heap-snapshot
-dominator analysis (off-heap leaks), opt-in live credential `--verify`, streamable-HTTP
-MCP transport, and a ratatui live TUI.
 
 ## Measure a running app (zero config)
 
@@ -211,8 +191,3 @@ users as a network service (AGPL §13). It comes with no warranty.
 The **name and brand "voltiq"** are **not** licensed under the AGPL — see
 [TRADEMARK.md](TRADEMARK.md). You may fork the code; you may not present your fork as
 "voltiq" or imply it is endorsed by the project.
-
-## Status
-
-Pre-1.0 and **not yet published** to a package registry — the CLI surface and report
-format may still change. Issues and PRs welcome.
