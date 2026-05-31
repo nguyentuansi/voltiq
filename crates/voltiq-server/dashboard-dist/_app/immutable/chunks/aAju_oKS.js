@@ -1,0 +1,1 @@
+import{aF as a,bl as u,a0 as t,aE as c,bh as e}from"./C8uA-51h.js";function l(n){t===null&&a(),c&&t.l!==null?s(t).m.push(n):u(()=>{const o=e(n);if(typeof o=="function")return o})}function i(n){t===null&&a(),l(()=>()=>e(n))}function s(n){var o=n.l;return o.u??(o.u={a:[],b:[],m:[]})}export{l as a,i as o};

@@ -14,10 +14,12 @@ use axum::{Json, Router};
 use rust_embed::RustEmbed;
 use voltiq_core::{Metric, MetricStatus, Report};
 
-/// The dashboard's static build, embedded into the binary at compile time.
-/// (The dashboard must be built first — see the repo Makefile `build-dashboard`.)
+/// The dashboard's static build, vendored into this crate so it ships with the published
+/// crate (crates.io publishes only files inside the crate). `make build-dashboard` (and CI)
+/// refresh `dashboard-dist/` from `apps/dashboard/build`; it's committed as the source of
+/// record so `cargo install voltiq` embeds a real dashboard.
 #[derive(RustEmbed)]
-#[folder = "../../apps/dashboard/build"]
+#[folder = "dashboard-dist"]
 struct Assets;
 
 #[derive(Clone)]

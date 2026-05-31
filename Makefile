@@ -9,6 +9,8 @@ build: build-dashboard build-rust
 
 build-dashboard:
 	bun run --filter @voltiq/dashboard build
+	rm -rf crates/voltiq-server/dashboard-dist && mkdir -p crates/voltiq-server/dashboard-dist
+	cp -r apps/dashboard/build/. crates/voltiq-server/dashboard-dist/
 
 build-rust:
 	cargo build --release --manifest-path $(CARGO_MANIFEST)

@@ -32,8 +32,13 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
-      - name: Build dashboard (embedded into the binary)
+      - name: Build dashboard
         run: bun run --filter @voltiq/dashboard build
+      - name: Vendor dashboard into voltiq-server (embedded at compile time)
+        shell: bash
+        run: |
+          rm -rf crates/voltiq-server/dashboard-dist && mkdir -p crates/voltiq-server/dashboard-dist
+          cp -r apps/dashboard/build/. crates/voltiq-server/dashboard-dist/
       - name: Build release binary
         run: cargo build --release --manifest-path crates/Cargo.toml --target ${{ matrix.target }} -p voltiq
       - name: Stage binary
@@ -59,8 +64,12 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
-      - name: Build dashboard (voltiq-server embeds it at compile time)
+      - name: Build dashboard
         run: bun run --filter @voltiq/dashboard build
+      - name: Vendor dashboard into voltiq-server (so the published crate carries it)
+        run: |
+          rm -rf crates/voltiq-server/dashboard-dist && mkdir -p crates/voltiq-server/dashboard-dist
+          cp -r apps/dashboard/build/. crates/voltiq-server/dashboard-dist/
       - name: cargo publish (core first, cli last)
         working-directory: crates
         env:
@@ -69,6 +78,6 @@ jobs:
           set -e
           for c in voltiq-core voltiq-security voltiq-perf voltiq-analysis voltiq-server voltiq-mcp voltiq; do
             echo "::group::publish $c"
-            cargo publish -p "$c"
+            cargo publish -p "$c" --allow-dirty
             echo "::endgroup::"
           done
