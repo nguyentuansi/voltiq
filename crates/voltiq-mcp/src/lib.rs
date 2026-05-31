@@ -247,10 +247,7 @@ fn call_tool(params: Option<&Value>) -> Result<Value, (i64, String)> {
                 .clamp(1, 5) as usize;
             // Set true when the URL is a production preview (built + served), so the report
             // is framed as a real-user verdict rather than a dev measurement.
-            let prod = args
-                .get("prod")
-                .and_then(|v| v.as_bool())
-                .unwrap_or(false);
+            let prod = args.get("prod").and_then(|v| v.as_bool()).unwrap_or(false);
             let (perf, findings) = if interactive {
                 voltiq_perf::web_interactive(url, stop, prod)
             } else {

@@ -2790,7 +2790,13 @@ mod tests {
             let bytes = if i < 3 { 500_000.0 } else { 1000.0 };
             reqs.push(jsreq(&format!("https://x/m{i}.js"), bytes, ""));
         }
-        let (_perf, findings) = build_report("https://x/", &Capture { navs: vec![nav_with(reqs)], ..Default::default() });
+        let (_perf, findings) = build_report(
+            "https://x/",
+            &Capture {
+                navs: vec![nav_with(reqs)],
+                ..Default::default()
+            },
+        );
         let find = |rule: &str| findings.iter().find(|f| f.rule_id == rule);
 
         let wf = find("web.request_waterfall").expect("waterfall should fire");

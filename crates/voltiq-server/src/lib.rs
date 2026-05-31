@@ -1057,8 +1057,14 @@ mod tests {
         // The budgeted tiles read good-vs-poor: 6916 KB transfer and 226 requests both blow
         // past their budgets (poor); 206 ms long-task is in the needs-work band. The poor
         // ones must render in the red status color, not the neutral grey.
-        assert!(html.contains("poor — good ≤ 1.6 MB"), "transfer not rated poor");
-        assert!(html.contains("needs work — good ≤ 200 ms"), "long-task not rated needs-work");
+        assert!(
+            html.contains("poor — good ≤ 1.6 MB"),
+            "transfer not rated poor"
+        );
+        assert!(
+            html.contains("needs work — good ≤ 200 ms"),
+            "long-task not rated needs-work"
+        );
         // Contextual tiles (navigations) stay neutral — no budget caption smuggled in.
         assert!(
             !html.contains("navigations</div><div class=\"bud\""),
