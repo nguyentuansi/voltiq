@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "voltiq": {
+      "command": "voltiq",
+      "args": ["mcp"]
+    }
+  }
+}

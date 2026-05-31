@@ -1,0 +1,19 @@
+# Rust
+crates/target/
+target/
+
+# Node / pnpm / turbo
+node_modules/
+.svelte-kit/
+**/build/
+**/dist/
+.turbo/
+
+# Secrets / env (never commit)
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/* ── voltiq landing theme (self-contained --aim-* tokens, matches the report) ── */
+:root,
+[data-theme="dark"] {
+  --aim-bg: rgb(28, 27, 25);
+  --aim-surface: rgb(39, 37, 32);
+  --aim-surface-2: rgb(33, 31, 27);
+  --aim-text: rgb(252, 232, 195);
+  --aim-text-soft: rgb(186, 166, 127);
+  --aim-text-muted: rgb(145, 129, 117);
+  --aim-accent: rgb(127, 217, 98); /* terminal green */
+  --aim-secondary: rgb(104, 168, 228); /* blue */
+  --aim-tertiary: rgb(232, 148, 58); /* orange */
+  --aim-purple: rgb(195, 151, 255);
+  --aim-border: rgb(46, 43, 38);
+  --aim-line: rgba(252, 232, 195, 0.1);
+  --aim-error: rgb(239, 47, 39);
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--aim-bg);
+  color: var(--aim-text);
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+.aim-slot {
+  display: contents;
+}
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--aim-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--aim-border);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--aim-text-muted);
+}
+
+/* Subtle reveal on enter */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  animation: rise 0.5s ease-out both;
+}

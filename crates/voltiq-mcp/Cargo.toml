@@ -1,0 +1,13 @@
+[package]
+name = "voltiq-mcp"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "MCP server adapter (stdio + streamable HTTP) exposing voltiq as agent tools."
+
+[dependencies]
+voltiq-core = { workspace = true }
+voltiq-security = { workspace = true }
+voltiq-perf = { workspace = true }
+voltiq-analysis = { workspace = true }
+serde_json = { workspace = true }

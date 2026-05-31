@@ -1,0 +1,10 @@
+[package]
+name = "voltiq-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Shared report schema, severity/finding/metric types, redaction, and renderers for voltiq."
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }

@@ -1,0 +1,17 @@
+{
+  "name": "voltiq",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "workspaces": ["apps/*", "packages/*", "crates"],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "check": "turbo run check",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.0"
+  }
+}

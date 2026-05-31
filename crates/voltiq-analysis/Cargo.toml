@@ -1,0 +1,11 @@
+[package]
+name = "voltiq-analysis"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Rules engine + hybrid AI analysis layer for voltiq."
+
+[dependencies]
+serde_json.workspace = true
+ureq = { version = "2", features = ["json"] }
+voltiq-core = { workspace = true }

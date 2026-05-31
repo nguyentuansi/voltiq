@@ -1,0 +1,12 @@
+{
+  "name": "@voltiq/native",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Rust workspace, wrapped as a turbo task so `turbo run build/test/check` drives cargo.",
+  "scripts": {
+    "build": "cargo build --release",
+    "check": "cargo clippy --all-targets",
+    "test": "cargo test",
+    "lint": "cargo fmt --check"
+  }
+}

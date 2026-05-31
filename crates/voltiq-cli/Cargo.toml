@@ -1,0 +1,21 @@
+[package]
+name = "voltiq-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "The `voltiq` command-line binary."
+
+[[bin]]
+name = "voltiq"
+path = "src/main.rs"
+
+[dependencies]
+voltiq-core = { workspace = true }
+voltiq-security = { workspace = true }
+voltiq-perf = { workspace = true }
+voltiq-analysis = { workspace = true }
+voltiq-server = { workspace = true }
+voltiq-mcp = { workspace = true }
+clap = { workspace = true }
+serde_json = { workspace = true }
+ctrlc = "3.5.2"

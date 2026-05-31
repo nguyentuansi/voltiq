@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "voltiq": {
+      "type": "stdio",
+      "command": "voltiq",
+      "args": ["mcp"],
+      "timeout": 600000
+    }
+  }
+}

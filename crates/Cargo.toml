@@ -1,0 +1,44 @@
+[workspace]
+resolver = "2"
+members = [
+    "voltiq-core",
+    "voltiq-security",
+    "voltiq-perf",
+    "voltiq-analysis",
+    "voltiq-server",
+    "voltiq-mcp",
+    "voltiq-cli",
+]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2021"
+license = "AGPL-3.0-only"
+rust-version = "1.80"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+thiserror = "2"
+clap = { version = "4", features = ["derive"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+regex = "1"
+ignore = "0.4"
+walkdir = "2"
+tempfile = "3"
+base64 = "0.22"
+
+# internal crates
+voltiq-core = { path = "voltiq-core" }
+voltiq-security = { path = "voltiq-security" }
+voltiq-perf = { path = "voltiq-perf" }
+voltiq-analysis = { path = "voltiq-analysis" }
+voltiq-server = { path = "voltiq-server" }
+voltiq-mcp = { path = "voltiq-mcp" }
+
+[profile.release]
+strip = true
+lto = "thin"

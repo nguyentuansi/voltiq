@@ -1,0 +1,4 @@
+# Add to your OpenAI Codex config (e.g. ~/.codex/config.toml).
+[mcp_servers.voltiq]
+command = "voltiq"
+args = ["mcp"]

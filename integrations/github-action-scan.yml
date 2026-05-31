@@ -1,0 +1,29 @@
+# Drop-in workflow: scan a repo with voltiq and upload SARIF to code-scanning.
+# Copy to .github/workflows/voltiq.yml in the target repo.
+name: voltiq security scan
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history so git-history scanning works
+      - name: Install voltiq
+        run: |
+          curl -fsSL https://github.com/nguyentuansi/voltiq/releases/latest/download/voltiq-x86_64-unknown-linux-musl -o /usr/local/bin/voltiq
+          chmod +x /usr/local/bin/voltiq
+      - name: Scan
+        run: voltiq audit . --format sarif > voltiq.sarif || true
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: voltiq.sarif

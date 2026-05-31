@@ -1,0 +1,14 @@
+[package]
+name = "voltiq-server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "axum server: embedded dashboard + JSON/SSE API + static report.html writer."
+
+[dependencies]
+axum = "0.8.9"
+mime_guess = "2.0.5"
+rust-embed = { version = "8.11.0", features = ["axum"] }
+serde_json.workspace = true
+tokio = { workspace = true, features = ["rt-multi-thread", "macros", "net", "signal", "time"] }
+voltiq-core = { workspace = true }
