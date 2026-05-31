@@ -79,7 +79,7 @@ pub fn list() -> Vec<(String, Report)> {
             out.push((id, r));
         }
     }
-    out.sort_by(|a, b| b.1.generated_at_unix_ms.cmp(&a.1.generated_at_unix_ms));
+    out.sort_by_key(|x| std::cmp::Reverse(x.1.generated_at_unix_ms));
     out
 }
 

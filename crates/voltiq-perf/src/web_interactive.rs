@@ -1731,7 +1731,7 @@ fn build_report(url: &str, cap: &Capture) -> (PerfReport, Vec<Finding>) {
                 *counts.entry(r.kind.as_str()).or_insert(0) += 1;
             }
             let mut cv: Vec<(&str, usize)> = counts.into_iter().collect();
-            cv.sort_by(|a, b| b.1.cmp(&a.1));
+            cv.sort_by_key(|x| std::cmp::Reverse(x.1));
             let by_type = cv
                 .iter()
                 .take(6)
@@ -1792,7 +1792,7 @@ fn build_report(url: &str, cap: &Capture) -> (PerfReport, Vec<Finding>) {
         }
     }
     let mut cats: Vec<(&str, usize)> = by_cat.into_iter().collect();
-    cats.sort_by(|a, b| b.1.cmp(&a.1));
+    cats.sort_by_key(|x| std::cmp::Reverse(x.1));
     for (kind, count) in cats {
         report.metrics.push(Metric::new(
             format!("{kind} reqs"),

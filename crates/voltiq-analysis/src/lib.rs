@@ -152,7 +152,7 @@ pub fn agent_brief(report: &Report) -> String {
 
     // Findings, highest severity first, capped.
     let mut findings: Vec<_> = report.findings.iter().collect();
-    findings.sort_by(|a, b| b.severity.cmp(&a.severity));
+    findings.sort_by_key(|f| std::cmp::Reverse(f.severity));
     let _ = writeln!(s, "\n## findings");
     for f in findings.iter().take(20) {
         let loc = f

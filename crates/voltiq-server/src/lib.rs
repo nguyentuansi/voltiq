@@ -464,7 +464,7 @@ fn series<'a>(report: &'a Report, name: &str) -> Option<&'a [[f64; 2]]> {
 
 fn findings_rows(report: &Report) -> String {
     let mut fs: Vec<&voltiq_core::Finding> = report.findings.iter().collect();
-    fs.sort_by(|a, b| b.severity.cmp(&a.severity));
+    fs.sort_by_key(|f| std::cmp::Reverse(f.severity));
     let mut rows = String::new();
     for f in fs {
         let loc = f
